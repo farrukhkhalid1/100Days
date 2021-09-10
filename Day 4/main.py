@@ -29,6 +29,10 @@ scissors = '''
 computer = random.randint(1,3)
 player_1 = int(input("What do you want to choose? Rock = 1, Paper = 2, Scissors =3\n"))
 
+if 0 <= player_1 >= 4:
+    print("Enter valid number")
+    exit()
+
 if player_1 == 1:
     print(rock)
 elif player_1 == 2:
@@ -42,6 +46,7 @@ elif computer == 2:
     print(paper)
 elif computer == 3:
     print(scissors)
+
 if player_1 == computer:
     print("You draw")
 elif player_1 == 1 and computer == 3:
