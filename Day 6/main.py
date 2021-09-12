@@ -3,8 +3,6 @@ def turn_right():
     turn_left()
     turn_left()
     turn_left()
-    return 0
-
 
 while not at_goal():
     if right_is_clear():
