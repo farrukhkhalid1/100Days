@@ -44,3 +44,10 @@ class Snake:
     def right(self):
         if self.head.heading() != 180:
             self.head.setheading(0)
+
+    def reset_snake(self):
+        for box in self.allboxes:
+            box.goto(1000,1000)
+        self.allboxes.clear()
+        self.create_snake()
+        self.head = self.allboxes[0]
