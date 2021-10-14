@@ -3,10 +3,12 @@ from tkinter import messagebox
 import random
 import string
 import pyperclip
+import json
 
 
 def generate_password():
-    word_list = string.ascii_lowercase + string.ascii_uppercase + string.digits + string.punctuation + string.ascii_letters
+    word_list = string.ascii_lowercase + string.ascii_uppercase + string.digits + string.punctuation + \
+                string.ascii_letters
     password = "".join(random.sample(word_list, 15))
     password_entry.delete(0, END)
     password_entry.insert(0, password)
@@ -18,16 +20,41 @@ def add_button():
     username = username_entry.get()
     password = password_entry.get()
 
-    if len(website) < 1 or len(username) < 1 or len(password) < 1:
-        messagebox.showinfo(title="Oops", message="You left some fields empty.")
+    data_dict = {
+        website: {
+            "username": username,
+            "password": password,
+        }
+    }
+    try:
+        with open("password_file.json", "r") as file:
+            data = json.load(file)
+    except:
+        with open("password_file.json", "w") as file:
+            json.dump(data_dict, file, indent=4)
     else:
-        confirmation = messagebox.askokcancel(title="Confirmation",
-                                              message=f"Please confirm:\nWebsite: {website}\nUsername: {username}\nPassword: {password}")
-        if confirmation:
-            with open("password_file.txt", 'a') as f:
-                f.write(f"{website} | {username} | {password}\n")
-                website_entry.delete(0, END)
-                password_entry.delete(0, END)
+        data.update(data_dict)
+        with open("password_file.json", 'w') as file:
+            json.dump(data, file, indent=4)
+    finally:
+        website_entry.delete(0, END)
+        password_entry.delete(0, END)
+
+
+def search_button():
+    website = website_entry.get()
+    try:
+        with open("password_file.json", "r") as file:
+            data = json.load(file)
+    except:
+        messagebox.showinfo(message="No such File")
+    else:
+        if website in data:
+            username = data[website]["username"]
+            password = data[website]["password"]
+            messagebox.showinfo(message=f"{website}\nEmail: {username}\nPassword: {password}")
+        else:
+            messagebox.showinfo(message="No such Website")
 
 
 tk = Tk()
@@ -51,19 +78,21 @@ password_label.grid(column=0, row=3)
 
 # Entries
 
-website_entry = Entry(width=40)
-website_entry.grid(column=1, row=1, columnspan=2)
+website_entry = Entry()
+website_entry.grid(column=1, row=1, sticky='we')
 website_entry.focus()
 username_entry = Entry(width=40)
 username_entry.grid(column=1, row=2, columnspan=2)
 username_entry.insert(0, "username@username.com")
 password_entry = Entry(width=20)
-password_entry.grid(column=1, row=3, sticky='w')
+password_entry.grid(column=1, row=3, sticky='we')
 
 # Buttons
+search_button = Button(text="Search", width=15, command=search_button)
+search_button.grid(column=2, row=1, sticky='we')
 
 generate_button = Button(text="Generate Button", width=15, command=generate_password)
-generate_button.grid(column=2, row=3, sticky='e')
+generate_button.grid(column=2, row=3, sticky='we')
 add_button = Button(text="Add", width=40, command=add_button)
 add_button.grid(column=1, row=4, columnspan=2, pady=5, sticky='we')
 
