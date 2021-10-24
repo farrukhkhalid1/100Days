@@ -1,0 +1,74 @@
+h1 {
+
+  margin: 0 ;
+  font-family: 'Sacramento',cursive;
+}
+
+h2 {
+  font-family: 'Montserrat',sans-serif;
+
+
+}
+
+body {
+  margin: 0;
+  text-align: center;
+
+  color: #11999E;
+
+}
+
+.top_container {
+  background-color: #D3E4CD;
+  margin: 0;
+  padding: 100px;
+  padding-bottom: 0;
+  position: relative;
+}
+
+.my_image {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto;
+
+}
+
+.upper_cloud{
+  position: absolute;
+  right: 300px;
+  top: 50px;
+
+
+}
+
+.lower_cloud{
+  position: absolute;
+  left: 300px;
+  bottom: 300px;
+
+
+}
+
+h3{
+  color: #11999E;
+}
+.skill-row{
+  margin: 100px auto 100px auto;
+  width: 50%;
+  text-align: left;
+  line-height: 2;
+
+}
+
+.C{
+  width: 25%;
+  float: left;
+  margin-right: 30px;
+
+}
+
+.python{
+  width: 25%;
+  float: right;
+  margin-left: 30px;
+}
